@@ -1,0 +1,11 @@
+{
+  "name": "trudhome",
+  "version": "1.0.0",
+  "description": "trudbot's borwser start page.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "trudbot",
+  "license": "MIT"
+}
