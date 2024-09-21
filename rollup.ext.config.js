@@ -4,20 +4,20 @@ import html from '@rollup/plugin-html';
 import copy from "rollup-plugin-copy-assets";
 import postcss from 'rollup-plugin-postcss';
 import fs from 'fs';
-import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
+import terser from '@rollup/plugin-terser';
 
 export default [{
     input: 'src/main.js',
     output: {
-        dir: 'output',
         format: 'es',
-        name: 'bundle'
-    },
+        name: 'bundle',
+        dir: 'output'
+    },  
     plugins: [
         replace({
-            '__MODE': JSON.stringify('APP_PROD'),
+            '__MODE': JSON.stringify('EXT'),
             preventAssignment: true
         }),
         nodeResolve(),
@@ -56,12 +56,25 @@ export default [{
         copy({
           assets: [
             // You can include directories
-            "src/assets"
+            "src/assets",
+            "src/manifest.json"
           ],
         }),
         string({
             include: '**/*.json'
         }),
+        terser()
+    ]
+}, {
+    input: 'src/background/index.js',
+    output: {
+        dir: 'output/background',
+        format: 'es',
+        name: 'bundle'
+    },
+    plugins: [
+        nodeResolve(),
+        commonjs(),
         terser()
     ]
 }];

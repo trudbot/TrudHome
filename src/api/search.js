@@ -1,18 +1,12 @@
 import searchEngineText from "./search-engine.json";
+import { corsFetch } from "./jsonp-request";
 export const searchEngine = JSON.parse(searchEngineText);
 
-import fetchJsonp from "fetch-jsonp";
 export const getSearchSuggestions = async (keyWord) => {
     try {
         const encodedKeyword = encodeURIComponent(keyWord);
-        const response = await fetchJsonp(
-            `https://suggestion.baidu.com/su?wd=${encodedKeyword}`,
-            {
-                // 回调参数
-                jsonpCallback: "cb",
-            }
-        );
-        const data = await response.json();
+        const url = `https://suggestion.baidu.com/su?wd=${encodedKeyword}`;
+        const data = await corsFetch(url, 'gbk');
         return data.s;
     } catch (error) {
         console.error("处理搜索建议发生错误：", error);
@@ -30,4 +24,4 @@ export const search = (input, opt) => {
     } else {
         window.location.href = searchEngine[opt.engine].url + encodeURIComponent(input);
     }
-}
+};

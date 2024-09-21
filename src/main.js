@@ -3,8 +3,9 @@ import {useTextStorage} from './utils/useTextStorage.js';
 import './styles.css'
 
 const $ = selector => document.querySelector(selector);
-const searchEngineProxy = useTextStorage('search-engine', 'google');
-const bgImgProxy = useTextStorage('bg-img', '');
+const searchEngineProxy = useTextStorage('trudhome-search-engine', 'google');
+const bgImgProxy = useTextStorage('trudhome-bg-img', '');
+let lastSuggestionTimestamp = -1;
 const searchEngineOptions = [
     'google',
     'bing',
@@ -21,15 +22,21 @@ $('.search-form').addEventListener('submit', e => {
 
 // 加载搜索提示
 $('.search-input').addEventListener('input', async e => {
-    console.log('input事件触发');
+    const time = Date.now();
     try {
         const suggestion = await getSearchSuggestions(e.target.value);
+        // 后请求的建议先到达， 则先请求的建议丢弃
+        if (time < lastSuggestionTimestamp) {
+            return;
+        }
         if (suggestion?.length) {
             $('.search').classList.add('has-suggestion');
         } else {
             $('.search').classList.remove('has-suggestion');
             return;
         }
+        // 更新 最新请求时间
+        lastSuggestionTimestamp = time;
         $('.search-suggestion').innerHTML  = '';
         $('.search-suggestion').append(...suggestion.map(item => {
             const li = document.createElement('li');
