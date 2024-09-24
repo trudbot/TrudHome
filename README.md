@@ -29,3 +29,21 @@ web版本: 在浏览器设置中将新标签页设置为打开`https://trudbot.c
     * 主要困难在于， 这功能最好作为可选， 因为有些情况可能并不希望屏蔽csdn
     * 但做成可选意味着需要增加交互点， 这违背了本项目的简洁原则。
 * 历史记录。 这个功能感觉有用， 又感觉没用， 考虑中。
+
+## Development
+**install**
+```shell
+npm install
+```
+**build for web**
+```shell
+npm run build
+```
+**build for chrome extensions**
+```shell
+npm run build:ext
+```
+**build for firefox extensions**
+```shell
+npm run build:ext:firefox
+```
