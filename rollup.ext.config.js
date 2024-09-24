@@ -1,7 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
-import copy from "rollup-plugin-copy-assets";
+import copy from 'rollup-plugin-copy'
 import postcss from 'rollup-plugin-postcss';
 import fs from 'fs';
 import {string} from 'rollup-plugin-string';
@@ -27,7 +27,7 @@ export default [{
             extract: true,
             inject: false,
             minimize: true
-        }),
+        }), 
         html({
             fileName: 'index.html',
             title: 'trudhome',
@@ -54,11 +54,11 @@ export default [{
             }
         }),
         copy({
-          assets: [
-            // You can include directories
-            "src/assets",
-            "src/manifest.json"
-          ],
+          targets: [
+            {src: "src/assets", dest: "output"},
+            // firefox和chrome使用不同的manifest.json
+            {src: process.env.BROWSER === 'firefox' ? "src/manifest-firefox.json" : "src/manifest.json", dest: "output", rename: "manifest.json"}
+          ]
         }),
         string({
             include: '**/*.json'
