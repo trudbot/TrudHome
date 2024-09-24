@@ -7,6 +7,12 @@
         "name": "trudbot",
         "url": "https://trudbot.cn"
     },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "home@trudbot.cn",
+            "strict_min_version": "109.0"
+        }
+    },
     "description": "极简中的极简的浏览器起始页。",
     "minimum_chrome_version": "88",
     "chrome_url_overrides": {
