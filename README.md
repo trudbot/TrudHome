@@ -13,9 +13,10 @@ trudbot's  borwser start page.
 web版本: 在浏览器设置中将新标签页设置为打开`https://trudbot.cn/TrudHome/`
 
 浏览器插件版本: 
-* github release下载： `https://github.com/trudbot/TrudHome/releases/tag/latest`
+* github release下载： [`https://github.com/trudbot/TrudHome/releases/tag/latest`](`https://github.com/trudbot/TrudHome/releases/tag/latest)
 * edge商店下载: edge插件发布中; 
 * chrome商店下载: chrome开发者账号注册要5$, 因此暂不考虑chrome发布。
+* firefox商店下载: [点击进入下载页面](https://addons.mozilla.org/zh-CN/firefox/addon/trudhome/) 或者 在firefox拓展商店搜索`trudhome`
 
 ## Usage
 1. 点击搜索引擎图标即可切换搜索引擎(只支持google/bing/baidu)
