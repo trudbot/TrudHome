@@ -131,7 +131,7 @@ form input {
   align-items: center;
   padding-left: 20px;
 
-  &:hover {
+  &.selected {
     background-color: #ececec;
   }
 }

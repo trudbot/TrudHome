@@ -7,6 +7,14 @@ import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
+import filesize from 'rollup-plugin-filesize';
+
+// clean output dir before building
+try {
+    fs.rmSync('output', { recursive: true, force: true });
+} catch (e) {
+    // ignore
+}
 
 export default [{
     input: 'src/main.js',
@@ -62,6 +70,7 @@ export default [{
         string({
             include: '**/*.json'
         }),
-        terser()
+        terser(),
+        filesize({ showGzippedSize: true })
     ]
 }];

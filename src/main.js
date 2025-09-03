@@ -1,11 +1,14 @@
 import {search, getSearchSuggestions, searchEngine} from './api/search.js';
 import {useTextStorage} from './utils/useTextStorage.js';
 import './styles.css'
+import { useRef, watchRef } from './utils/useRef.js';
 
 const $ = selector => document.querySelector(selector);
 const searchEngineProxy = useTextStorage('trudhome-search-engine', 'google');
 const bgImgProxy = useTextStorage('trudhome-bg-img', '');
 let lastSuggestionTimestamp = -1;
+let originQuery = '';
+let selectedSuggestionIndex = useRef(0);
 const searchEngineOptions = [
     'google',
     'bing',
@@ -22,6 +25,8 @@ $('.search-form').addEventListener('submit', e => {
 
 // 加载搜索提示
 $('.search-input').addEventListener('input', async e => {
+    originQuery = e.target.value;
+    selectedSuggestionIndex.value = 0;
     const time = Date.now();
     try {
         const suggestion = await getSearchSuggestions(e.target.value);
@@ -53,6 +58,37 @@ $('.search-input').addEventListener('input', async e => {
 // 获得焦点时显示搜索建议
 $('.search-input').addEventListener('focus', () => {
     $('.search').classList.add('show-suggestion');
+});
+
+// 键盘上下键在建议中移动
+$('.search-input').addEventListener('keydown', e => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    const items = Array.from(document.querySelectorAll('.search-suggestion-item'));
+    if (!items.length) return;
+    const length = items.length + 1;
+    e.preventDefault();
+    if (e.key === 'ArrowDown') {
+        selectedSuggestionIndex.value = (selectedSuggestionIndex.value + 1) % length;
+    } else if (e.key === 'ArrowUp') {
+        selectedSuggestionIndex.value = (selectedSuggestionIndex.value - 1 + length) % length;
+    }
+});
+
+watchRef(selectedSuggestionIndex, (newVal) => {
+    if (!$('.search').classList.contains('has-suggestion')) return;
+    const itemEles = document.querySelectorAll('.search-suggestion-item');
+    if (!itemEles) return;
+    const items = Array.from(itemEles);
+    if (!items.length) return;
+    items.forEach((it, idx) => it.classList.toggle('selected', idx === newVal - 1));
+    if (newVal === 0) {
+        $('.search-input').value = originQuery;
+    } else {
+        const sel = items[newVal - 1];
+        if (sel) {
+            $('.search-input').value = sel.textContent;
+        }
+    }
 });
 
 // 点击search外部时隐藏搜索建议
@@ -115,3 +151,4 @@ function updateBgImgUI(imgBase64) {
 }
 updateBgImgUI(bgImgProxy.value);
 bgImgProxy.subscribe(updateBgImgUI);
+

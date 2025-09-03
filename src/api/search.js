@@ -3,6 +3,9 @@ import { corsFetch } from "./jsonp-request";
 export const searchEngine = JSON.parse(searchEngineText);
 
 export const getSearchSuggestions = async (keyWord) => {
+    if (!keyWord || keyWord.trim() === '') {
+        return [];
+    }
     try {
         const encodedKeyword = encodeURIComponent(keyWord);
         const url = `https://suggestion.baidu.com/su?wd=${encodedKeyword}`;

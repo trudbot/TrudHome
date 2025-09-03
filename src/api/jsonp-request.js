@@ -1,8 +1,14 @@
+/*
+输入：{a:1, b:2}
+输出：{"a":1, "b":2}
+*/
 function toJSONStr(str) {
     return str.replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":'});
 }
+
 export const corsFetch = async (url, charset) => {
     const cb = 'json';
+    // 打包为扩展时, 可以配置允许跨域请求, 因此自己请求并且解析jsonp返回
     if (__MODE === "EXT") {
         // 创建URL对象
         const urlObj = new URL(url);

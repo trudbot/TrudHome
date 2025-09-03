@@ -9,6 +9,13 @@ import livereload from 'rollup-plugin-livereload';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
 
+// clean output dir before building
+try {
+    fs.rmSync('output', { recursive: true, force: true });
+} catch (e) {
+    // ignore
+}
+
 export default {
     input: 'src/main.js',
     output: {
