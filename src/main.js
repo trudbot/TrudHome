@@ -96,7 +96,7 @@ document.addEventListener('click', (event) => {
     const searchContainer = $('.search');
 
     // 判断点击是否在 searchContainer 内部
-    if (!searchContainer === event.target && !searchContainer.contains(event.target)) {
+    if (!(searchContainer === event.target) && !searchContainer.contains(event.target)) {
         // 点击在 searchContainer 外部，隐藏搜索建议
         searchContainer.classList.remove('show-suggestion');
     }
