@@ -81,12 +81,14 @@ watchRef(selectedSuggestionIndex, (newVal) => {
     const items = Array.from(itemEles);
     if (!items.length) return;
     items.forEach((it, idx) => it.classList.toggle('selected', idx === newVal - 1));
+
+    const input = $('.search-input');
     if (newVal === 0) {
-        $('.search-input').value = originQuery;
+        input.value !== originQuery && (input.value = originQuery);
     } else {
         const sel = items[newVal - 1];
         if (sel) {
-            $('.search-input').value = sel.textContent;
+            input.value !== sel.textContent && (input.value = sel.textContent);
         }
     }
 });
