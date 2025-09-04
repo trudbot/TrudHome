@@ -20,9 +20,13 @@ export default {
     input: 'src/main.js',
     output: {
         dir: 'output',
-        format: 'es',
-        name: 'bundle'
-    },  
+        format: 'es',                // 关键：输出 ES 模块
+        sourcemap: true,
+        preserveModules: true,       // 关键：保留模块，不把所有代码合并到单一文件
+        preserveModulesRoot: 'src',  // 输出时保留 src 目录结构（可选）
+        entryFileNames: '[name].js', // 入口输出名（可自定义）
+        chunkFileNames: 'chunks/[name]-[hash].js' // 公共 chunk 命名
+    },
     plugins: [
         replace({
             '__MODE': JSON.stringify('APP_DEV'),
@@ -45,6 +49,7 @@ export default {
                     <html lang="en">
                     <head>
                         <meta charset="UTF-8">
+                        <meta name="description" content="Trudhome is a customizable new tab page extension that enhances your browsing experience with personalized search engines, background images, and quick access to your favorite websites.">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${title}</title>
                     </head>

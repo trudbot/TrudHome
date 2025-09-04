@@ -49,6 +49,7 @@ export default [{
                     <html lang="en">
                     <head>
                         <meta charset="UTF-8">
+                        <meta name="description" content="Trudhome is a customizable new tab page extension that enhances your browsing experience with personalized search engines, background images, and quick access to your favorite websites.">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <link rel="icon" href="https://www.bing.com/sa/simg/favicon-trans-bg-blue-mg-png.png"/>
                         <title>${title}</title>
