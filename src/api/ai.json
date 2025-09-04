@@ -1,0 +1,12 @@
+{
+    "baidu": {
+        "name": "百度AI搜",
+        "url": "https://chat.baidu.com/search?word=",
+        "icon": "baidu"
+    },
+    "chatgpt": {
+        "name": "ChatGPT",
+        "url": "https://chatgpt.com/?q=",
+        "icon": "chatgpt"
+    }
+}
