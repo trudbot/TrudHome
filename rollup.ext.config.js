@@ -7,7 +7,7 @@ import fs from 'fs';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
-import filesize from 'rollup-plugin-filesize';
+import showFilesSizes from './plugins/file-size.js';
 
 // clean output dir before building
 try {
@@ -74,7 +74,7 @@ export default [{
             include: '**/*.json'
         }),
         terser(),
-        filesize({ showGzippedSize: true })
+        showFilesSizes({ title: '扩展界面文件大小' })
     ]
 }, {
     input: 'src/background/index.js',
@@ -87,6 +87,6 @@ export default [{
         nodeResolve(),
         commonjs(),
         terser(),
-        filesize({ showGzippedSize: true })
+        showFilesSizes({ title: 'Background 脚本文件大小' })
     ]
 }];

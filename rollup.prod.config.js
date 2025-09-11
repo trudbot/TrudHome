@@ -8,7 +8,9 @@ import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
-import filesize from 'rollup-plugin-filesize';
+import showFilesSizes from './plugins/file-size.js';
+
+const inlineCss = true;
 
 // clean output dir before building
 try {
@@ -36,7 +38,7 @@ export default [{
         commonjs(),
         postcss({
             extensions: ['.css'],
-            extract: true,  // 指定输出文件名，默认为 'bundle.css'
+            extract: true,
             inject: false,
             minimize: true,
             plugins: [
@@ -44,7 +46,6 @@ export default [{
                 postcssUrl({
                     url: 'inline'
                 }),
-                
             ]
         }),
         html({
@@ -55,7 +56,9 @@ export default [{
                 const scripts = (files.js || [])
                     .map(({ fileName }) => `<script src="${fileName}" type="module"></script>`)
                     .join('\n');
-                const links = (files.css || []).map(({ fileName }) => `<link rel="stylesheet" href="${fileName}">`).join('\n');
+                const css = (files.css || []).map(({ source, fileName }) => {
+                    return inlineCss ? `<style>${source}</style>` : `<link rel="stylesheet" href="${fileName}">`
+                }).join('\n');
                 return `<!DOCTYPE html>
                     <html lang="en">
                     <head>
@@ -66,7 +69,7 @@ export default [{
                         <link rel="canonical" href="https://trudbot.cn/TrudHome"/>
                         <link rel="preload" href="${backgroundImage}" as="image" type="image/jpeg"/>
                         <title>${title}</title>
-                        ${links}
+                        ${css}
                     </head>
                     <body>
                         ${htmlContent}
@@ -79,6 +82,7 @@ export default [{
             include: '**/*.json'
         }),
         terser(),
-        filesize({ showGzippedSize: true })
+        // 显示所有文件大小
+        showFilesSizes({ title: '所有输出文件大小' }),
     ]
 }];
