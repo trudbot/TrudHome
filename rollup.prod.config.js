@@ -1,8 +1,9 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
-import copy from "rollup-plugin-copy-assets";
 import postcss from 'rollup-plugin-postcss';
+import postcssImport from 'postcss-import';
+import postcssUrl from 'postcss-url';
 import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
@@ -26,15 +27,23 @@ export default [{
     plugins: [
         replace({
             '__MODE': JSON.stringify('APP_PROD'),
+            '__BACKGROUND_IMG__': 'https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757558333213_39392946_167922017377460_809948193384395326_n.jpg',
             preventAssignment: true
         }),
         nodeResolve(),
         commonjs(),
         postcss({
             extensions: ['.css'],
-            extract: true,
+            extract: true,  // 指定输出文件名，默认为 'bundle.css'
             inject: false,
-            minimize: true
+            minimize: true,
+            plugins: [
+                postcssImport(),  // 处理 @import 语句
+                postcssUrl({
+                    url: 'inline'
+                }),
+                
+            ]
         }),
         html({
             fileName: 'index.html',
@@ -51,7 +60,8 @@ export default [{
                         <meta charset="UTF-8">
                         <meta name="description" content="Trudhome is a customizable new tab page extension that enhances your browsing experience with personalized search engines, background images, and quick access to your favorite websites.">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <link rel="icon" href="https://www.bing.com/sa/simg/favicon-trans-bg-blue-mg-png.png"/>
+                        <link rel="icon" href="https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757562409935_favicon.png"/>
+                        <link rel="canonical" href="https://trudbot.cn/TrudHome"/>
                         <title>${title}</title>
                         ${links}
                     </head>
@@ -61,12 +71,6 @@ export default [{
                     </body>
                     </html>`;
             }
-        }),
-        copy({
-          assets: [
-            // You can include directories
-            "src/assets"
-          ],
         }),
         string({
             include: '**/*.json'

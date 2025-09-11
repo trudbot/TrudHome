@@ -36,7 +36,7 @@ form input {
   width: 100%;
   background-position: center;
   background-size: cover;
-  background-image: url('./assets/39392946_167922017377460_809948193384395326_n.jpg');
+  background-image: url('__BACKGROUND_IMG__');
 }
 
 .content {
