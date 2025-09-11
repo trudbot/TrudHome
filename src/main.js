@@ -151,6 +151,5 @@ function updateBgImgUI(imgBase64) {
         $('.cover').style.backgroundImage = `url(${imgBase64})`;
     }
 }
-updateBgImgUI(bgImgProxy.value);
-bgImgProxy.subscribe(updateBgImgUI);
 
+bgImgProxy.subscribe(updateBgImgUI);
