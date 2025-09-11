@@ -19,7 +19,7 @@ try {
     // ignore
 }
 
-const backgroundImage = 'https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757558333213_39392946_167922017377460_809948193384395326_n.jpg';
+const backgroundImage = 'https://psstatic.cdn.bcebos.com/operation/2025_ncee/39392946_167922017377460_809948193384395326_n_1757589188000.webp';
 
 export default [{
     input: 'src/main.js',
@@ -73,7 +73,7 @@ export default [{
                     </head>
                     <body>
                         ${htmlContent}
-                        <script>
+                        <script defer>
                             // 预加载背景图以减少首次显示时的闪烁
                             const bgB64 = localStorage.getItem('trudhome-bg-img');
                             if (bgB64) {
