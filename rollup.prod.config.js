@@ -17,6 +17,8 @@ try {
     // ignore
 }
 
+const backgroundImage = 'https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757558333213_39392946_167922017377460_809948193384395326_n.jpg';
+
 export default [{
     input: 'src/main.js',
     output: {
@@ -27,7 +29,7 @@ export default [{
     plugins: [
         replace({
             '__MODE': JSON.stringify('APP_PROD'),
-            '__BACKGROUND_IMG__': 'https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757558333213_39392946_167922017377460_809948193384395326_n.jpg',
+            '__BACKGROUND_IMG__': backgroundImage,
             preventAssignment: true
         }),
         nodeResolve(),
@@ -62,6 +64,7 @@ export default [{
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <link rel="icon" href="https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757562409935_favicon.png"/>
                         <link rel="canonical" href="https://trudbot.cn/TrudHome"/>
+                        <link rel="preload" href="${backgroundImage}" as="image" type="image/jpeg"/>
                         <title>${title}</title>
                         ${links}
                     </head>
