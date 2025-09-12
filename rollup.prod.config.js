@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
-import copy from 'rollup-plugin-copy-assets'
+import copy from 'rollup-plugin-copy'
 import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
@@ -40,10 +40,7 @@ export default [{
             extensions: ['.css'],
             extract: true,
             inject: false,
-            minimize: true,
-            plugins: [
-                // postcssImport(),  // 处理 @import 语句
-            ]
+            minimize: true
         }),
         html({
             fileName: 'index.html',
@@ -53,6 +50,7 @@ export default [{
                 const scripts = (files.js || [])
                     .map(({ fileName }) => `<script src="${fileName}" type="module"></script>`)
                     .join('\n');
+                console.log('files', files);
                 const css = (files.css || []).map(({ source, fileName }) => {
                     return inlineCss ? `<style>${source}</style>` : `<link rel="stylesheet" href="${fileName}">`
                 }).join('\n');
@@ -86,7 +84,12 @@ export default [{
             include: '**/*.json'
         }),
         copy({
-            assets: ['src/assets/iconfont']
+            targets: [
+                {
+                    src: 'src/assets/iconfont/*.{ttf,woff,woff2}',
+                    dest: 'output'
+                }
+            ]
         }),
         terser(),
         // 显示所有文件大小

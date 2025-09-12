@@ -36,7 +36,7 @@ export default [{
             extract: true,
             inject: false,
             minimize: true
-        }), 
+        }),
         html({
             fileName: 'index.html',
             title: 'trudhome',
@@ -72,7 +72,8 @@ export default [{
         }),
         copy({
           targets: [
-            {src: "src/assets", dest: "output"},
+            {src: 'src/assets/iconfont/*.{ttf,woff,woff2}', dest: "output"},
+            {src: 'src/assets/*', dest: 'output/assets', ignore: ['src/assets/iconfont']},
             // firefox和chrome使用不同的manifest.json
             {src: process.env.BROWSER === 'firefox' ? "src/manifest-firefox.json" : "src/manifest.json", dest: "output", rename: "manifest.json"}
           ]

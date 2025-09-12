@@ -1,6 +1,7 @@
 import {search, getSearchSuggestions, searchEngine} from './api/search.js';
 import {useTextStorage} from './utils/useTextStorage.js';
-import './styles.css'
+import './styles.css';
+import './assets/iconfont/iconfont.css';
 import { useRef, watchRef } from './utils/useRef.js';
 
 const $ = selector => document.querySelector(selector);

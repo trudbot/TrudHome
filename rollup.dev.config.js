@@ -1,7 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
-import copy from "rollup-plugin-copy-assets";
+import copy from 'rollup-plugin-copy'
 import postcss from 'rollup-plugin-postcss';
 import fs from 'fs';
 import serve from 'rollup-plugin-serve';
@@ -70,10 +70,10 @@ export default {
             }
         }),
         copy({
-          assets: [
-            // You can include directories
-            "src/assets"
-          ],
+            targets: [
+                {src: 'src/assets/iconfont/*.{ttf,woff,woff2}', dest: "output"},
+                {src: 'src/assets/*', dest: 'output/assets', ignore: ['src/assets/iconfont']},
+            ]
         }),
         string({
             include: '**/*.json'
