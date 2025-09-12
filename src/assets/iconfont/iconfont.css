@@ -7,6 +7,7 @@
 
 .iconfont {
   font-family: "iconfont" !important;
+  font-display: swap;
   font-size: inherit;
   font-style: inherit;
   -webkit-font-smoothing: antialiased;
