@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
-import postcssUrl from 'postcss-url';
+import copy from 'rollup-plugin-copy-assets'
 import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
@@ -42,10 +42,7 @@ export default [{
             inject: false,
             minimize: true,
             plugins: [
-                postcssImport(),  // 处理 @import 语句
-                postcssUrl({
-                    url: 'inline'
-                }),
+                // postcssImport(),  // 处理 @import 语句
             ]
         }),
         html({
@@ -87,6 +84,9 @@ export default [{
         }),
         string({
             include: '**/*.json'
+        }),
+        copy({
+            assets: ['src/assets/iconfont']
         }),
         terser(),
         // 显示所有文件大小
