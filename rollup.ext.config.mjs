@@ -7,7 +7,7 @@ import fs from 'fs';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
-import showFilesSizes from './plugins/file-size.js';
+import showFilesSizes from './plugins/file-size.mjs';
 
 // clean output dir before building
 try {
@@ -16,6 +16,9 @@ try {
     // ignore
 }
 
+/**
+ * @type {import('rollup').RollupOptions[]}
+ */
 export default [{
     input: 'src/main.js',
     output: {

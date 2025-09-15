@@ -2,13 +2,12 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
 import postcss from 'rollup-plugin-postcss';
-import postcssImport from 'postcss-import';
 import copy from 'rollup-plugin-copy'
 import fs from 'fs';
 import terser from '@rollup/plugin-terser';
 import {string} from 'rollup-plugin-string';
 import replace from '@rollup/plugin-replace';
-import showFilesSizes from './plugins/file-size.js';
+import showFilesSizes from './plugins/file-size.mjs';
 
 const inlineCss = true;
 
@@ -21,6 +20,9 @@ try {
 
 const backgroundImage = 'https://psstatic.cdn.bcebos.com/operation/2025_ncee/39392946_167922017377460_809948193384395326_n_1757589188000.webp';
 
+/**
+ * @type {import('rollup').RollupOptions[]}
+ */
 export default [{
     input: 'src/main.js',
     output: {
@@ -50,7 +52,6 @@ export default [{
                 const scripts = (files.js || [])
                     .map(({ fileName }) => `<script src="${fileName}" type="module"></script>`)
                     .join('\n');
-                console.log('files', files);
                 const css = (files.css || []).map(({ source, fileName }) => {
                     return inlineCss ? `<style>${source}</style>` : `<link rel="stylesheet" href="${fileName}">`
                 }).join('\n');
