@@ -50,7 +50,7 @@ export default [{
             template: ({ attributes, files, meta, publicPath, title }) => {
                 const htmlContent = fs.readFileSync('src/index.html', 'utf-8');
                 const scripts = (files.js || [])
-                    .map(({ fileName }) => `<script src="${fileName}" type="module"></script>`)
+                    .map(({ fileName }) => `<script src="${fileName}" type="module" async></script>`)
                     .join('\n');
                 const css = (files.css || []).map(({ source, fileName }) => {
                     return inlineCss ? `<style>${source}</style>` : `<link rel="stylesheet" href="${fileName}">`
