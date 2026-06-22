@@ -24,6 +24,17 @@ $('.search-form').addEventListener('submit', e => {
     e.preventDefault();
 });
 
+// 监听 cmd/ctrl + enter 快捷键, 跳转到 chatgpt
+$('.search-form').addEventListener('keydown', e => {
+    const isCmdOrCtrl = e.metaKey || e.ctrlKey;
+    if (isCmdOrCtrl && e.key === 'Enter') {
+        e.preventDefault();
+        search($('.search-input').value, {
+            engine: 'baiduAI'
+        });
+    }
+})
+
 // 加载搜索提示
 $('.search-input').addEventListener('input', async e => {
     originQuery = e.target.value;

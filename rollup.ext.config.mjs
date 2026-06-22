@@ -60,13 +60,6 @@ export default [{
                     </head>
                     <body>
                         ${htmlContent}
-                        <script>
-                            // 预加载背景图以减少首次显示时的闪烁
-                            const bgB64 = localStorage.getItem('trudhome-bg-img');
-                            if (bgB64) {
-                                document.querySelector('.cover').style.backgroundImage = "url(" + bgB64 + ")";
-                            }
-                        </script>
                         ${scripts}
                     </body>
                     </html>`;

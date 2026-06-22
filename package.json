@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx rollup -c rollup.dev.config.js --watch",
+    "dev": "npx rollup -c rollup.dev.config.mjs --watch",
     "build": "npx rollup -c rollup.prod.config.mjs",
     "build:ext": "npx rollup -c rollup.ext.config.mjs --environment BROWSER:chrome",
     "build:ext:firefox": "npx rollup -c rollup.ext.config.mjs --environment BROWSER:firefox"
