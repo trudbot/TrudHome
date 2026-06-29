@@ -67,7 +67,7 @@ export default [{
         }),
         copy({
           targets: [
-            {src: 'src/assets/iconfont/*.{ttf,woff,woff2}', dest: "output"},
+            {src: 'src/assets/iconfont/*.woff2', dest: "output"},
             {src: 'src/assets/*', dest: 'output/assets', ignore: ['src/assets/iconfont']},
             // firefox和chrome使用不同的manifest.json
             {src: process.env.BROWSER === 'firefox' ? "src/manifest-firefox.json" : "src/manifest.json", dest: "output", rename: "manifest.json"}
@@ -76,7 +76,17 @@ export default [{
         string({
             include: '**/*.json'
         }),
-        terser(),
+        terser({
+            compress: {
+                passes: 10,
+                pure_getters: true,
+                unsafe: true,
+                unsafe_math: true,
+                unsafe_methods: true,
+                hoist_vars: true,
+                hoist_funs: true
+            }
+        }),
         showFilesSizes({ title: '扩展界面文件大小' })
     ]
 }, {
@@ -89,7 +99,17 @@ export default [{
     plugins: [
         nodeResolve(),
         commonjs(),
-        terser(),
+        terser({
+            compress: {
+                passes: 10,
+                pure_getters: true,
+                unsafe: true,
+                unsafe_math: true,
+                unsafe_methods: true,
+                hoist_vars: true,
+                hoist_funs: true
+            }
+        }),
         showFilesSizes({ title: 'Background 脚本文件大小' })
     ]
 }];
