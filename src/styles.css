@@ -46,67 +46,7 @@ form input {
   margin-top: 20vh;
   margin-left: auto;
   margin-right: auto;
-  max-width: 975px;
-}
-
-@media screen and (min-width: 435px) and (max-width: 499px) {
-  .search {
-    width: 400px;
-  }
-}
-
-@media screen and (min-width: 500px) and (max-width: 529px) {
-  .search {
-    width: 450px;
-  }
-}
-
-@media screen and (min-width: 530px) and (max-width: 609px) {
-  .search {
-    width: 500px;
-  }
-}
-
-@media screen and (min-width: 610px) and (max-width: 643px) {
-  .search {
-    width: 550px;
-  }
-}
-
-@media screen and (min-width: 644px) and (max-width: 749px) {
-  .search {
-    width: 600px;
-  }
-}
-
-@media screen and (min-width: 750px) and (max-width: 879px) {
-  .search {
-    width: 700px;
-  }
-}
-
-@media screen and (min-width: 880px) and (max-width: 955px) {
-  .search {
-    width: 760px;
-  }
-}
-
-@media screen and (min-width: 956px) and (max-width: 1024px) {
-  .search {
-    width: 800px;
-  }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1144px) {
-  .search {
-    width: 900px;
-  }
-}
-
-@media (min-width: 1145px) {
-  .search {
-    width: 975px;
-  }
+  width: clamp(400px, 86vw, 975px);
 }
 
 .search-form {

@@ -63,7 +63,7 @@ export default [{
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <link rel="icon" href="https://trudbot-md-img.oss-cn-shanghai.aliyuncs.com/2025/09/11/1757562409935_favicon.png"/>
                         <link rel="canonical" href="https://trudbot.cn/TrudHome"/>
-                        <link rel="preload" href="${backgroundImage}" as="image" type="image/jpeg"/>
+                        <link rel="preload" href="${backgroundImage}" as="image" type="image/webp"/>
                         <title>${title}</title>
                         ${css}
                     </head>
@@ -87,12 +87,22 @@ export default [{
         copy({
             targets: [
                 {
-                    src: 'src/assets/iconfont/*.{ttf,woff,woff2}',
+                    src: 'src/assets/iconfont/*.woff2',
                     dest: 'output'
                 }
             ]
         }),
-        terser(),
+        terser({
+            compress: {
+                passes: 10,
+                pure_getters: true,
+                unsafe: true,
+                unsafe_math: true,
+                unsafe_methods: true,
+                hoist_vars: true,
+                hoist_funs: true
+            }
+        }),
         // 显示所有文件大小
         showFilesSizes({ title: '所有输出文件大小' }),
     ]
