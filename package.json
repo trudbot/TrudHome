@@ -9,7 +9,8 @@
     "dev": "npx rollup -c rollup.dev.config.mjs --watch",
     "build": "npx rollup -c rollup.prod.config.mjs",
     "build:ext": "npx rollup -c rollup.ext.config.mjs --environment BROWSER:chrome",
-    "build:ext:firefox": "npx rollup -c rollup.ext.config.mjs --environment BROWSER:firefox"
+    "build:ext:firefox": "npx rollup -c rollup.ext.config.mjs --environment BROWSER:firefox",
+    "release:tag": "git tag v$(node -p \"require('./package.json').version\") && git push origin v$(node -p \"require('./package.json').version\")"
   },
   "author": "trudbot",
   "license": "MIT",

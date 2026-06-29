@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag, defaults to package.json version'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve release tag
+        id: release-tag
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            tag="${GITHUB_REF_NAME}"
+          elif [ -n "${{ github.event.inputs.tag }}" ]; then
+            tag="${{ github.event.inputs.tag }}"
+          else
+            tag="v$(node -p "require('./package.json').version")"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Build Chrome extension
+        run: npm run build:ext
+
+      - name: Package Chrome extension
+        run: |
+          mkdir -p dist
+          cd output
+          zip -r "../dist/trudhome-chrome-${{ steps.release-tag.outputs.tag }}.zip" .
+
+      - name: Build Firefox extension
+        run: npm run build:ext:firefox
+
+      - name: Package Firefox extension
+        run: |
+          mkdir -p dist
+          cd output
+          zip -r "../dist/trudhome-firefox-${{ steps.release-tag.outputs.tag }}.zip" .
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.release-tag.outputs.tag }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" dist/*.zip --clobber
+          else
+            gh release create "$RELEASE_TAG" dist/*.zip --title "$RELEASE_TAG" --notes "Automated extension release for $RELEASE_TAG" --target "$GITHUB_SHA"
+          fi
