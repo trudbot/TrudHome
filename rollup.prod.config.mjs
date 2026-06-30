@@ -11,6 +11,17 @@ import showFilesSizes from './plugins/file-size.mjs';
 
 const inlineCss = true;
 
+const removeExtractedCss = () => ({
+    name: 'remove-extracted-css',
+    generateBundle(_, bundle) {
+        for (const fileName of Object.keys(bundle)) {
+            if (fileName.endsWith('.css')) {
+                delete bundle[fileName];
+            }
+        }
+    }
+});
+
 // clean output dir before building
 try {
     fs.rmSync('output', { recursive: true, force: true });
@@ -81,6 +92,7 @@ export default [{
                     </html>`;
             }
         }),
+        inlineCss && removeExtractedCss(),
         string({
             include: '**/*.json'
         }),

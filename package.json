@@ -1,6 +1,6 @@
 {
   "name": "trudhome",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "trudbot's borwser start page.",
   "main": "index.html",
   "type": "module",

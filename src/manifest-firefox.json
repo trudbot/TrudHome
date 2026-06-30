@@ -24,7 +24,7 @@
     },
     "homepage_url": "https://github.com/trudbot/TrudHome",
     "host_permissions": [
-        "https://suggestion.baidu.com/"
+        "https://www.baidu.com/"
     ],
     "icons": {
         "16": "assets/icons/logo16.png",

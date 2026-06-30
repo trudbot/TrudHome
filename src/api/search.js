@@ -10,9 +10,9 @@ export const getSearchSuggestions = async (keyWord) => {
     }
     try {
         const encodedKeyword = encodeURIComponent(keyWord);
-        const url = `https://suggestion.baidu.com/su?wd=${encodedKeyword}`;
-        const data = await corsFetch(url, 'gbk');
-        return data.s;
+        const url = `https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&wd=${encodedKeyword}`;
+        const data = await corsFetch(url, 'utf-8');
+        return data.g?.map(item => item.q) || [];
     } catch (error) {
         console.error("处理搜索建议发生错误：", error);
         return null;

@@ -55,10 +55,13 @@ $('.search-input').addEventListener('input', async e => {
         // 更新 最新请求时间
         lastSuggestionTimestamp = time;
         $('.search-suggestion').innerHTML  = '';
-        $('.search-suggestion').append(...suggestion.map(item => {
+        $('.search-suggestion').append(...suggestion.map((item, idx) => {
             const li = document.createElement('li');
             li.classList.add('search-suggestion-item');
             li.textContent = item;
+            li.addEventListener('mouseenter', () => {
+                selectedSuggestionIndex.value = idx + 1;
+            });
             return li;
         }));
     } catch (error) {
